@@ -1,4 +1,4 @@
-const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = '#target') {
+const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = '#target',callback={}) {
   var req = new XMLHttpRequest(),
     method = "GET",
     file = fileURL;
@@ -9,6 +9,10 @@ const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = 
       if (req.readyState === 4 && req.status === 200) {
         var rest = req.responseText;
         divTarget.innerHTML = rest;
+        if(callback !== {}){
+          const callArg = rest;
+          callback(callArg);
+        };
       }
     };
     req.send();
@@ -20,11 +24,16 @@ const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = 
         var restxt = req.responseXML; 
         var int = restxt.querySelector(intName);
         divTarget.innerHTML = int.outerHTML;
+        if(callback !== {}){
+          const callArg = restxt;
+          callback(callArg);
+        };
       }
     };
     req.send();
   }
 };
+
 const ptCopyHtmlData = function (target, where) {
   if (document.querySelector(target)) {
     const nodeElm = document.querySelector(target);
