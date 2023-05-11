@@ -1,4 +1,4 @@
-const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = '#target',callback={}) {
+const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = '#target',callback=new Object()) {
   var req = new XMLHttpRequest(),
     method = "GET",
     file = fileURL;
@@ -9,7 +9,7 @@ const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = 
       if (req.readyState === 4 && req.status === 200) {
         var rest = req.responseText;
         divTarget.innerHTML = rest;
-        if(callback !== {}){
+        if(callback && typeof callback === 'function'){
           const callArg = rest;
           callback(callArg);
         };
@@ -24,7 +24,7 @@ const reqHtlmGet = function (fileURL, outputIdElm, selectElm = false, intName = 
         var restxt = req.responseXML; 
         var int = restxt.querySelector(intName);
         divTarget.innerHTML = int.outerHTML;
-        if(callback !== {}){
+        if(callback && typeof callback === 'function'){
           const callArg = restxt;
           callback(callArg);
         };
@@ -128,3 +128,4 @@ function cartDummyQty(ID) {
   fragment.appendChild(spanItem);
   document.querySelector(ID).appendChild(fragment);
 };
+
