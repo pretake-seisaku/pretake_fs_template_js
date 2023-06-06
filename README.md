@@ -5,7 +5,7 @@
 ### pretakeProtoStinckyFix
 商品詳細(.fs-body-productがbodyにあるページ)でデフォルトで右側にある商品の件名や購入ボタンなどの概要要素をcssでstickyする際のバグ回避用関数。
 
-```js:使用例
+```javascript:使用例
 
 const stickyFix = new pretakeProtoStinckyFix('.fs-l-productLayout__item--2','.fs-l-productLayout');
 stickyFix.evScroll();
