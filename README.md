@@ -1,6 +1,6 @@
 # 各関数説明
 
-## ptCore.js
+## ptProductStincky.min.js
 
 ### pretakeProtoStinckyFix( targetClass | string , targetWrap | string )
 商品詳細(.fs-body-productがbodyにあるページ)でデフォルトで右側にある商品の件名や購入ボタンなどの概要要素をcssでstickyする際のバグ回避用オブジェクト。
@@ -15,8 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
+## ptModal.min.js
+
 ### pretakeProtoModal( set | object , timeout | Number )
-商品詳細(.fs-body-productがbodyにあるページ)で購入ボタン押した際にモーダル開く仕様の時使うオブジェクト。
+商品詳細(.fs-body-productがbodyにあるページ)で購入ボタン押した際にモーダル開く仕様の時使うオブジェクト。普通に連携しないモーダル設置する際も使用可能。
 #### 使い方
 domを全て読み込んだタイミングで使う
 ```javascript
