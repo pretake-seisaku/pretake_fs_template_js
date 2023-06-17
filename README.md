@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.setModal();
 });
 ```
-
+## ptCore.js
 ### pretakeScript
 FSで使用するテンプレートサイトで使う基本動作をまとめたメソッドやらオブジェクトを呼び出すオブジェクト。
 #### 使い方
