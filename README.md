@@ -108,7 +108,7 @@ if (pt.bodyClsContains('fs-body-product')) {
 }
 ```
 
-### pretakeScript.smoothScroll( ID | string , except | Array[ID](optional) )
+### pretakeScript.smoothScroll( ID | string , except | Array(optional) )
 ページ内でIDで移動する時にスムーズに移動させる関数。
 
 #### 使い方
@@ -124,7 +124,7 @@ pt.smoothScroll("glnav-block",["output-item-multi"]);
 #### 引数
 ##### ID(string)
 ページ内での追従グローバルナビなど画面上部に常に表示される要素のIDをつける。付けた要素の高さを計算してその分下にずらす。ない場合、空のdiv要素などにIDを付けてそれをbody内の上の方に配置して使用可。
-##### except(Array[ID])
+##### except(Array)
 モーダル、タグ切り替えなどで移動させたくないIDを使用している場合に使用。シャープはなし。
 ```javascript
 pt.smoothScroll("glnav-block",["moveTo1","moveTo2","moveTo3"]);
@@ -141,7 +141,7 @@ pt.locationMoveToTag("glnav-block");
 ##### ID(string)
 ページ内での追従グローバルナビなど画面上部に常に表示される要素のIDをつける。付けた要素の高さを計算してその分下にずらす。
 
-###　retakeScript.inView(cls, op, anotherCls = null | Object(optional), addCls = 'is-active' | string(optional), onlyOnce = false | bool(optional))
+###　retakeScript.inView(cls, op, anotherCls　| Object(optional), addCls | string(optional), onlyOnce | bool(optional))
 画面内に入ったら特定の要素にクラスをつける関数。IntersectionObserver簡易版。
 
 ### omittedContent( string | string , count | Number)
