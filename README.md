@@ -141,7 +141,7 @@ pt.locationMoveToTag("glnav-block");
 ##### ID(string)
 ページ内での追従グローバルナビなど画面上部に常に表示される要素のIDをつける。付けた要素の高さを計算してその分下にずらす。
 
-###　retakeScript.inView(cls, op, anotherCls　| Object(optional), addCls | string(optional), onlyOnce | bool(optional))
+### pretakeScript.inView(cls , op , anotherCls　| Object(optional) , addCls | string(optional) , onlyOnce | bool(optional))
 画面内に入ったら特定の要素にクラスをつける関数。IntersectionObserver簡易版。
 
 ### omittedContent( string | string , count | Number)
