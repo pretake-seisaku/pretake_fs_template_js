@@ -257,7 +257,7 @@ dropdownFooter.int();
 
 
 ## pretakeScript.setEnvHeight()
-ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。 
+ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。単位はpx
 ブラウザ内の画面の高さを正確に描写する際に使用可。 
 ### 使い方
 pretakeScriptを生成後
