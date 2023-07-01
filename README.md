@@ -213,7 +213,9 @@ pretakeScriptを生成後。
 cssは各自用意する。
 ```javascript
 //何も入れない場合デフォルトのclassを対象にする
+//int()で初期化して使う
 const dropdownFooter = new pt.dropdown();
+dropdownFooter.int();
 ```
 ```html
 <!-- 関数に引数を入れなかった場合 -->
@@ -245,6 +247,14 @@ const dropdownFooter = new pt.dropdown();
 ##### tglCls(string)
 ドロップダウンの開閉時、wrapperの要素につけるclass名を指定。「.」は無し。 
 デフォルト = "is-active"
+
+#### メソッド
+##### dropdown.int()
+ドロップダウンを初期化する。
+
+##### dropdown.remove()
+ドロップダウンを取り除く。
+
 
 ### pretakeScript.setEnvHeight()
 ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。 
