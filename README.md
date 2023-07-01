@@ -88,19 +88,19 @@ closed要素につけるclass,又はidを入れる。queryselectorの書き方�
 現状テスト状態。空の文字列で固定。
 
 ## ptCore.js
-### pretakeScript
+## pretakeScript
 FSで使用するテンプレートサイトで使う基本動作をまとめたメソッドやらオブジェクトを呼び出すオブジェクト。
-#### 使い方
+### 使い方
 head内のptCore.jsを読み込んだ後
 ```javascript
 const pt = new pretakeScript();
 const dropdownFooter = new pt.dropdown('f-acc-wrap',"f-acc-tit","f-acc-items","f-items-inn","is-active");
 ```
 
-### pretakeScript.bodyClsContains( class | string )
+## pretakeScript.bodyClsContains( class | string )
 bodyのクラス判別
 return | bool
-#### 使い方
+### 使い方
 pretakeScriptを生成後
 ```javascript
 if (pt.bodyClsContains('fs-body-product')) {
@@ -108,10 +108,10 @@ if (pt.bodyClsContains('fs-body-product')) {
 }
 ```
 
-### pretakeScript.smoothScroll( ID | string , except | Array(optional) )
+## pretakeScript.smoothScroll( ID | string , except | Array(optional) )
 ページ内でIDで移動する時にスムーズに移動させる関数。
 
-#### 使い方
+### 使い方
 pretakeScriptを生成後
 ```javascript
 pt.smoothScroll("glnav-block",["output-item-multi"]);
@@ -121,33 +121,33 @@ pt.smoothScroll("glnav-block",["output-item-multi"]);
 <a href="#move-top">HOME</a>
 ```
 
-#### 引数
-##### ID(string)
+### 引数
+#### ID(string)
 ページ内での追従グローバルナビなど画面上部に常に表示される要素のIDをつける。付けた要素の高さを計算してその分下にずらす。ない場合、空のdiv要素などにIDを付けてそれをbody内の上の方に配置して使用可。
-##### except(Array)
+#### except(Array)
 モーダル、タグ切り替えなどで移動させたくないIDを使用している場合に使用。シャープはなし。
 ```javascript
 pt.smoothScroll("glnav-block",["moveTo1","moveTo2","moveTo3"]);
 ```
 
-### pretakeScript.locationMoveToTag( ID | string)
+## pretakeScript.locationMoveToTag( ID | string)
 他ページ移動時、追従ヘッダーなどで文章が隠れる際の位置調整用の関数。
-#### 使い方
+### 使い方
 pretakeScriptを生成後
 ```javascript
 pt.locationMoveToTag("glnav-block");
 ```
-#### 引数
-##### ID(string)
+### 引数
+#### ID(string)
 ページ内での追従グローバルナビなど画面上部に常に表示される要素のIDをつける。付けた要素の高さを計算してその分下にずらす。
 
-### pretakeScript.inView(cls , op , anotherCls　| Object(optional) , addCls | string(optional) , onlyOnce | bool(optional))
+## pretakeScript.inView(cls , op , anotherCls　| Object(optional) , addCls | string(optional) , onlyOnce | bool(optional))
 画面内に入ったら特定の要素にクラスをつける関数。IntersectionObserver簡易版。
 
-### pretakeScript.switchEvent(bp | Number , func | Function)
+## pretakeScript.switchEvent(bp | Number , func | Function)
 ブラウザの横幅が特定の幅になったら登録した関数をコールバックする関数
 
-#### 使い方
+### 使い方
 pretakeScriptを生成後
 ```javascript
 const BREAK_POPINT = 800;
@@ -186,14 +186,14 @@ const setFunc = {
 pt.switchEvent(BREAK_POPINT,setFunc);
 ```
 
-#### 引数
-##### bp(Number)
+### 引数
+#### bp(Number)
 切り替えの幅を指定。単位はつけない
 ```javascript
 // これで800px
 pt.switchEvent(800,setFunc);
 ```
-##### func(Function)
+#### func(Function)
 切り替え時の関数を登録する。 
 オブジェクトのkeyの名前は下記の例のもので固定（バグるので）
 ```javascript
@@ -205,10 +205,10 @@ const setFunc = {
 };
 pt.switchEvent(BREAK_POPINT,setFunc);
 ```
-### pretakeScript.dropdown( wrapper | string(optional), tarElm | string(optional), itemsWrap | string(optional), innItem | string(optional), tglCls | string(optional) )
+## pretakeScript.dropdown( wrapper | string(optional), tarElm | string(optional), itemsWrap | string(optional), innItem | string(optional), tglCls | string(optional) )
 クリックで開閉するドロップダウンを作る関数。 
 各引数に文字列を渡せば対象のclass名を変更可能。
-#### 使い方
+### 使い方
 pretakeScriptを生成後。
 cssは各自用意する。
 ```javascript
@@ -226,40 +226,40 @@ dropdownFooter.int();
 	</div>
 </div>
 ```
-#### 引数
-##### wrapper(string)
+### 引数
+#### wrapper(string)
 ドロップダウンの一番外側の要素につけるclass名を指定。「.」は無し。 
 この要素で囲った内側にある要素がドロップダウンのイベントの対象になる。 
 デフォルト = "acc__wrap"
 
-##### tarElm(string)
+#### tarElm(string)
 ドロップダウンのクリック対象の要素につけるclass名を指定。「.」は無し。 
 デフォルト = "acc__btn"
 
-##### itemsWrap(string)
+#### itemsWrap(string)
 ドロップダウンの開閉の要素(外側)につけるclass名を指定。「.」は無し。 
 デフォルト = "acc__list"
 
-##### innItem(string)
+#### innItem(string)
 ドロップダウンの開閉の要素(内側)につけるclass名を指定。「.」は無し。 
 デフォルト = "acc__item"
 
-##### tglCls(string)
+#### tglCls(string)
 ドロップダウンの開閉時、wrapperの要素につけるclass名を指定。「.」は無し。 
 デフォルト = "is-active"
 
-#### メソッド
-##### dropdown.int()
+### メソッド
+#### dropdown.int()
 ドロップダウンを初期化する。
 
-##### dropdown.remove()
+#### dropdown.remove()
 ドロップダウンを取り除く。
 
 
-### pretakeScript.setEnvHeight()
+## pretakeScript.setEnvHeight()
 ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。 
 ブラウザ内の画面の高さを正確に描写する際に使用可。 
-#### 使い方
+### 使い方
 pretakeScriptを生成後
 ```javascript
 pt.setEnvHeight();
@@ -270,7 +270,7 @@ pt.setEnvHeight();
 }
 ```
 
-### omittedContent( string | string , count | Number)
+## omittedContent( string | string , count | Number)
 文字数制限する関数。（呼び出し不可）
 現状、「商品詳細の追従購入ボタンの商品名」、「パンくず（ptCore.jsを呼び出さない特定の下層ページを除く）」で自動で動く仕様にしてる。
 
