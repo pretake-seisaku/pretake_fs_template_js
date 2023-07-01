@@ -206,7 +206,7 @@ const setFunc = {
 pt.switchEvent(BREAK_POPINT,setFunc);
 ```
 ## pretakeScript.dropdown( wrapper | string(optional), tarElm | string(optional), itemsWrap | string(optional), innItem | string(optional), tglCls | string(optional) )
-クリックで開閉するドロップダウンを作る関数。 
+クリックで開閉するドロップダウンを作るオブジェクト。
 各引数に文字列を渡せば対象のclass名を変更可能。
 ### 使い方
 pretakeScriptを生成後。
