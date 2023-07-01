@@ -253,7 +253,7 @@ dropdownFooter.int();
 ドロップダウンを初期化する。
 
 #### dropdown.remove()
-ドロップダウンを取り除く。
+ドロップダウンを取り除く。int()すればオブジェクトを破壊するまでは初期化可能。
 
 
 ## pretakeScript.setEnvHeight()
