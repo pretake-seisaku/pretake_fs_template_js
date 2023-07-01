@@ -266,8 +266,8 @@ pt.setEnvHeight();
 ```
 ```css
 .my-class{
-	/* --ym-env-vh = 1vh */
-	/* vhと違い、URLを表示するアドレスバーも差し引かれた高さになる */
+  /* --ym-env-vh = 1vh */
+  /* vhと違い、URLを表示するアドレスバーも差し引かれた高さになる */
   min-height: calc(var(--ym-env-vh) * 100);
 }
 ```
