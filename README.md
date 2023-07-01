@@ -144,7 +144,7 @@ pt.locationMoveToTag("glnav-block");
 ### pretakeScript.inView(cls , op , anotherCls　| Object(optional) , addCls | string(optional) , onlyOnce | bool(optional))
 画面内に入ったら特定の要素にクラスをつける関数。IntersectionObserver簡易版。
 
-### pretakeScript.switchEvent
+### pretakeScript.switchEvent(bp | Number , func | Function)
 ブラウザの横幅が特定の幅になったら登録した関数をコールバックする関数
 
 #### 使い方
@@ -184,6 +184,40 @@ const setFunc = {
   }
 };
 pt.switchEvent(BREAK_POPINT,setFunc);
+```
+
+#### 引数
+##### bp(Number)
+切り替えの幅を指定。単位はつけない
+```javascript
+// これで800px
+pt.switchEvent(800,setFunc);
+```
+##### func(Function)
+切り替え時の関数を登録する。
+オブジェクトのkeyの名前は下記の例のもので固定（バグるので）
+```javascript
+const BREAK_POPINT = 800;
+const setFunc = {
+  //　関数はコールバック先で動かすので()不要
+  mqMin: functionOne,
+  mqMax: functionTwo
+};
+pt.switchEvent(BREAK_POPINT,setFunc);
+```
+
+### pretakeScript.setEnvHeight()
+ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。
+ブラウザ内の画面の高さを正確に描写する際に使用可。
+#### 使い方
+pretakeScriptを生成後
+```javascript
+pt.setEnvHeight();
+```
+```css
+.my-class{
+  min-height: calc(var(--ym-env-vh) * 100);
+}
 ```
 
 ### omittedContent( string | string , count | Number)
