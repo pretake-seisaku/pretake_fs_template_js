@@ -210,7 +210,7 @@ pt.switchEvent(BREAK_POPINT,setFunc);
 各引数に文字列を渡せば対象のclass名を変更可能。
 #### 使い方
 pretakeScriptを生成後。
-cssは各自用意する
+cssは各自用意する。
 ```javascript
 //何も入れない場合デフォルトのclassを対象にする
 const dropdownFooter = new pt.dropdown();
