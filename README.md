@@ -144,6 +144,48 @@ pt.locationMoveToTag("glnav-block");
 ### pretakeScript.inView(cls , op , anotherCls　| Object(optional) , addCls | string(optional) , onlyOnce | bool(optional))
 画面内に入ったら特定の要素にクラスをつける関数。IntersectionObserver簡易版。
 
+### pretakeScript.switchEvent
+ブラウザの横幅が特定の幅になったら登録した関数をコールバックする関数
+
+#### 使い方
+pretakeScriptを生成後
+```javascript
+const BREAK_POPINT = 800;
+const setFunc = {
+  mqMin: () => {
+    console.log('幅800px超過の時');
+  },
+  mqMax: () => {
+    console.log('幅800px以下の時');
+  }
+};
+pt.switchEvent(BREAK_POPINT,setFunc);
+```
+eventListenerを使って幅でイベントを切り替える場合
+```javascript
+const BREAK_POPINT = 800;
+const nodeElms = document.querySelector('.ym-class');
+
+function funcMin(){
+  console.log('幅800px超過の時');
+};
+function funcMax(){
+  console.log('幅800px以下の時');
+};
+
+const setFunc = {
+  mqMin: () => {
+    nodeElms.addEventListener('click' , funcMin, false);
+    nodeElms.removeEventListener('click' , funcMax, false);
+  },
+  mqMax: () => {
+    nodeElms.addEventListener('click' , funcMax, false);
+    nodeElms.removeEventListener('click' , funcMin, false);
+  }
+};
+pt.switchEvent(BREAK_POPINT,setFunc);
+```
+
 ### omittedContent( string | string , count | Number)
 文字数制限する関数。（呼び出し不可）
 現状、「商品詳細の追従購入ボタンの商品名」、「パンくず（ptCore.jsを呼び出さない特定の下層ページを除く）」で自動で動く仕様にしてる。
