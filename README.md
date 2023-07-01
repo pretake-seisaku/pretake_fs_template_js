@@ -194,7 +194,7 @@ pt.switchEvent(BREAK_POPINT,setFunc);
 pt.switchEvent(800,setFunc);
 ```
 ##### func(Function)
-切り替え時の関数を登録する。
+切り替え時の関数を登録する。 
 オブジェクトのkeyの名前は下記の例のもので固定（バグるので）
 ```javascript
 const BREAK_POPINT = 800;
@@ -205,10 +205,50 @@ const setFunc = {
 };
 pt.switchEvent(BREAK_POPINT,setFunc);
 ```
+### pretakeScript.dropdown( wrapper | string(optional), tarElm | string(optional), itemsWrap | string(optional), innItem | string(optional), tglCls | string(optional) )
+クリックで開閉するドロップダウンを作る関数。 
+各引数に文字列を渡せば対象のclass名を変更可能。
+#### 使い方
+pretakeScriptを生成後 
+cssは各自用意する
+```javascript
+//何も入れない場合デフォルトのclassを対象にする
+const dropdownFooter = new pt.dropdown();
+```
+```html
+<!-- 関数に引数を入れなかった場合 -->
+<div class="acc__wrap">
+	<p class="acc__ttl"><span class="__inn-txt">ドロップダウンタイトル</span><span class="acc__btn"></span></p>
+	<div class="acc__list">
+		<div class="acc__item"><p>ドロップダウン中身</p></div>
+	</div>
+</div>
+```
+#### 引数
+##### wrapper(string)
+ドロップダウンの一番外側の要素につけるclass名を指定。「.」は無し。 
+この要素で囲った内側にある要素がドロップダウンのイベントの対象になる。 
+デフォルト = "acc__wrap"
+
+##### tarElm(string)
+ドロップダウンのクリック対象の要素につけるclass名を指定。「.」は無し。 
+デフォルト = "acc__btn"
+
+##### itemsWrap(string)
+ドロップダウンの開閉の要素(外側)につけるclass名を指定。「.」は無し。 
+デフォルト = "acc__list"
+
+##### innItem(string)
+ドロップダウンの開閉の要素(内側)につけるclass名を指定。「.」は無し。 
+デフォルト = "acc__item"
+
+##### tglCls(string)
+ドロップダウンの開閉時、wrapperの要素につけるclass名を指定。「.」は無し。 
+デフォルト = "is-active"
 
 ### pretakeScript.setEnvHeight()
-ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。
-ブラウザ内の画面の高さを正確に描写する際に使用可。
+ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。 
+ブラウザ内の画面の高さを正確に描写する際に使用可。 
 #### 使い方
 pretakeScriptを生成後
 ```javascript
