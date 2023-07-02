@@ -209,7 +209,7 @@ pt.switchEvent(BREAK_POPINT,setFunc);
 クリックで開閉するドロップダウンを作るオブジェクト。
 各引数に文字列を渡せば対象のclass名を変更可能。
 ### 使い方
-pretakeScriptを生成後。
+pretakeScriptを生成後。  
 cssは各自用意する。
 ```javascript
 //何も入れない場合デフォルトのclassを対象にする
@@ -255,6 +255,165 @@ dropdownFooter.int();
 #### dropdown.remove()
 ドロップダウンを取り除く。int()すればオブジェクトを破壊するまでは初期化可能。
 
+## pretakeScript.tglPanel( tgl | string (optional), tab | string (optional), pane | string (optional))
+トグルパネルを生成するオブジェクト。  
+### 使い方
+pretakeScriptを生成後。  
+cssは各自用意する。
+
+```javascript
+// 何も入れなければデフォルトの値で生成される。
+// int()で初期化
+const tgl = new pt.tglPanel();
+tgl.int();
+```
+各タブ、パネルにはインデックス番号代わりのクラスをつける。  
+「tgl-swi__*」「pane-target__*」がそれ。  
+最初に開いておきたい要素にはそれぞれ「active」「show」を付けておく。
+``` html
+<div class="tab-panel">
+  <div class="tab-panel__tab">
+    <div class="tgl-swi tgl-swi__1 active">
+      タブ1
+    </div>
+    <div class="tgl-swi tgl-swi__2">
+      タブ2
+    </div>
+    <div class="tgl-swi tgl-swi__3">
+      タブ3
+    </div>
+  </div>
+  <div class="pane-target pane-target__1 show">
+    <!-- パネル1 -->
+  </div>
+  <div class="pane-target pane-target__2">
+    <!-- パネル2 -->
+  </div>
+  <div class="pane-target pane-target__3">
+    <!-- パネル3 -->
+  </div>
+</div>
+```
+また、複数運用も可能  
+大元のwrap要素にクラスを付け、以下のようにする。  
+引数に値を渡す際は必ずクラス名が被らないようにする。「.」は無し。
+```javascript
+const tgl = new pt.tglPanel();
+tgl.int('tab-panel__1');
+tgl.int('tab-panel__2');
+```
+int()に入れた文字を大元のwrap要素にクラスとしてつける。
+``` html
+<div class="tab-panel tab-panel__1">
+  <div class="tab-panel__tab">
+    <div class="tgl-swi tgl-swi__1 active">
+      タブ1
+    </div>
+  </div>
+  <div class="pane-target pane-target__1 show">
+    <!-- パネル1 -->
+  </div>
+</div>
+<div class="tab-panel tab-panel__2">
+  <div class="tab-panel__tab">
+    <div class="tgl-swi tgl-swi__1 active">
+      タブ1
+    </div>
+  </div>
+  <div class="pane-target pane-target__1 show">
+    <!-- パネル1 -->
+  </div>
+</div>
+```
+引数あり、なしを同時運用は不可。（バグります）
+```javascript
+//これはだめ
+const tgl = new pt.tglPanel();
+tgl.int();
+tgl.int('tab-panel__1');
+```
+
+### 引数
+####  tgl(string)
+タブパネルの一番外側の要素につけるclass名を指定。「.」は有り。 
+この要素で囲った内側にある要素がタブパネルのイベントの対象になる。 
+デフォルト = ".tab-panel"
+
+#### tab(string)
+タブの要素につけるclass名を指定。「.」は無し。 
+また、要素にはインデックス番号用のクラスも一緒につける。  
+デフォルト = "tgl-swi"
+```html
+<div class="tab-panel__tab">
+  <div class="tgl-swi tgl-swi__1 active">
+    タブ1
+  </div>
+  <div class="tgl-swi tgl-swi__2">
+    タブ2
+  </div>
+  <div class="tgl-swi tgl-swi__3">
+    タブ3
+  </div>
+</div>
+```
+
+#### pane(string)
+パネルの要素につけるclass名を指定。「.」は無し。 
+また、要素にはインデックス番号用のクラスも一緒につける。  
+デフォルト = "pane-target"
+
+```html
+<div class="pane-target pane-target__1 show">
+  <!-- パネル1 -->
+</div>
+<div class="pane-target pane-target__2">
+  <!-- パネル2 -->
+</div>
+<div class="pane-target pane-target__3">
+  <!-- パネル3 -->
+</div>
+```
+### メソッド
+#### tglPanel.int( wrapLabel | string)
+タブパネルを初期化する。
+引数に値を渡した場合、オブジェクトを生成した際に指定したtglのクラス名＋wrapLabelの二つのクラス名で複数のタブパネルを作れる。
+
+#### tglPanel.remove( wrapLabel | string)
+タブパネルを取り除く。int()すればオブジェクトを破壊するまでは初期化可能。
+取り除く際は、初期化と同じ引数にする。
+```javascript
+const tgl = new pt.tglPanel();
+tgl.int('tab-panel__1');
+// :
+// :
+// 何かしらの処理の後、タブパネルを取り除く
+tgl.remove('tab-panel__1');
+```
+
+#### tglPanel.call( wrapLabel | string , index | Number)
+特定のパネルをひらいだ状態にする。
+初期化後に使用。
+```javascript
+// 初期化済みの状態で使用する
+const tgl = new pt.tglPanel();
+tgl.int();
+const elm = document.querySelector('.ym-class');
+elm.addEventListener('click' , (e)=>{
+  // indexに渡した数字に該当するパネルが開く
+  tgl.call(index=2);
+});
+```
+初期化時に引数を渡している場合
+```javascript
+// 初期化済みの状態で使用する
+const tgl = new pt.tglPanel();
+tgl.int('tab-panel__1');
+const elm = document.querySelector('.ym-class');
+elm.addEventListener('click' , (e)=>{
+  // indexに渡した数字に該当するパネルが開く
+  tgl.call('tab-panel__1',2);
+});
+```
 
 ## pretakeScript.setEnvHeight()
 ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。単位はpx。
