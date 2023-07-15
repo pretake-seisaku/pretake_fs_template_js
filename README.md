@@ -209,7 +209,7 @@ pt.switchEvent(BREAK_POPINT,setFunc);
 クリックで開閉するドロップダウンを作るオブジェクト。
 各引数に文字列を渡せば対象のclass名を変更可能。
 ### 使い方
-pretakeScriptを生成後。  
+pretakeScriptを生成、DOMの読みこみが終わった後。  
 cssは各自用意する。
 ```javascript
 //何も入れない場合デフォルトのclassを対象にする
@@ -258,7 +258,7 @@ dropdownFooter.int();
 ## pretakeScript.tglPanel( tgl | string (optional), tab | string (optional), pane | string (optional))
 トグルパネルを生成するオブジェクト。  
 ### 使い方
-pretakeScriptを生成後。  
+pretakeScriptを生成、DOMの読みこみが終わった後。  
 cssは各自用意する。
 
 ```javascript
