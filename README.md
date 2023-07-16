@@ -71,21 +71,54 @@ document.addEventListener('DOMContentLoaded', function() {
   omModal.setModal('.__mdl2');
 });
 ```
-#### property
-##### pretakeProtoModal.set.wrap(string)
+### property
+#### pretakeProtoModal.set.wrap(string)
 wrap要素につけるclass,又はidを入れる。queryselectorの書き方と同じ。
-##### pretakeProtoModal.set.open(string)
+#### pretakeProtoModal.set.open(string)
 open要素につけるclass,又はidを入れる。queryselectorの書き方と同じ。
-##### pretakeProtoModal.set.closed(string)
+#### pretakeProtoModal.set.closed(string)
 closed要素につけるclass,又はidを入れる。queryselectorの書き方と同じ。
-##### pretakeProtoModal.set.closedBgElm(string)
+#### pretakeProtoModal.set.closedBgElm(string)
 背景要素につけるclassを入れる。
-##### pretakeProtoModal.set.activeCls(string)
+#### pretakeProtoModal.set.activeCls(string)
 モーダルが開いた時にwrap要素につけるclassを入れる。
-##### pretakeProtoModal.set.aniCls(string)
+#### pretakeProtoModal.set.aniCls(string)
 モーダルが開いた時にwrap要素につけるアニメーション用のclassを入れる。
-##### pretakeProtoModal.set.isActiveB(string)
+#### pretakeProtoModal.set.isActiveB(string)
 現状テスト状態。空の文字列で固定。
+
+### メソッド
+#### pretakeProtoModal.setModal( setNum | string (optional));
+モーダルを初期化する。  
+setNumに与えたクラス名がindex番号のかわりになる。
+```javascript
+// 複数のモーダルを作る場合
+// 何も入れない場合「.__mdl1」が自動で入る
+omModal.setModal(); // これは.__mdl1を対象にする
+omModal.setModal('.__mdl2');
+omModal.setModal('.__mdl3');
+```
+``` html
+<!-- モーダルの「pretakeProtoModal.set.open」「pretakeProtoModal.set.closed」「モーダルの内容を入れる要素」にあたる要素に引数のクラスを付ける -->
+<!-- この場合、「om-modal__close」「om-modal__open-btn」「om-modal__inn」 がそれ-->
+<div class="om-modal__wrap">
+  <span class="om-modal__close __mdl2" role="button" aria-label="閉じる"></span>
+
+  <div class="om-modal__inn __mdl2">
+  <!-- modal inside -->
+  </div>
+</div>
+
+<div class="modal-open-btn">
+  <div class="om-modal__open-btn __mdl2" role="button" aria-label="開く">
+    <span class="fs-c-button__label">open modal</span>
+  </div>
+</div>
+```
+
+#### pretakeProtoModal.removeModal( setNum | string (optional));
+モーダルを取り除く。int()すればオブジェクトを破壊するまでは初期化可能。  
+取り除く際は、初期化と同じ引数にする。
 
 ## ptCore.js
 ## pretakeScript
@@ -434,6 +467,102 @@ pt.setEnvHeight();
 ## omittedContent( string | string , count | Number)
 文字数制限する関数。（呼び出し不可）
 現状、「商品詳細の追従購入ボタンの商品名」、「パンくず（ptCore.jsを呼び出さない特定の下層ページを除く）」で自動で動く仕様にしてる。
+
+## makeElements.js
+DOM要素を新しく作ったり、移動、複製するためのjsファイル。  
+基本的には商品詳細で本来置けない場所に要素をコピーしたり強引にDOMを移動するための関数セット。  
+wordpressの記事など別ページの要素を呼び出す場合は使うこともできる。
+
+### 使い方
+head内で設置、任意の箇所で関数名で各関数を呼び出し。  
+「単品、複数パターン」,「定期便」かでそれぞれ貼り付けるコードは変更する。
+
+```html
+<!-- idは商品詳細ページで使うので「makeElements-script」を必ずつける -->
+<script type="text/javascript" src="{% items[/pt/js/makeElements.js] %}" id="makeElements-script"></script>
+```
+```html
+<!-- 「単品、複数パターン」時は「pt.item.javascript_single_01.html」 -->
+<!-- または「定期便」時は「pt.item.javascript_subscription.html」をそのまま使用 -->
+<script id="single-script__based">
+  (function () {
+    // ~~~~~~~~
+  }());
+</script>
+```
+
+## reqHtlmGet( fileURL | URL, outputIdElm | string , selectElm | bool (optional), intName | string (optional) , callback | function(optional) )
+wordpressの記事など別ページの要素を呼び出す時に使う関数。  
+XMLHttpRequest簡易版(FetchAPIに切り替えるかも？)
+
+### 使い方
+呼び出し側
+```html
+<div class="sec__body-wp" id="clone-wp"></div>
+<!-- 対象のDOMを読み込んでから -->
+<script>
+reqHtlmGet('https://yourwebsite/clone_top-media/','clone-wp',true,'#clone-wp__media');
+</script>
+```
+「https://yourwebsite/clone_top-media/」側
+```html
+<div id="clone-wp__media" class="sec__media-wp">
+  <!-- 読み込みたい内容。内容はwrap要素（この場合#clone-wp__media）も含む。 -->
+</div>
+```
+
+### 引数
+#### fileURL (URL)
+呼び出す側のURLを記載。文字列扱い
+
+#### outputIdElm (string)
+呼び出し側のwrap要素につけているIDを記載（#は不要）
+
+#### selectElm (bool)
+そのページ全てを呼び出すか一部を呼び出すかを切り替える。  
+falseで全て、trueで一部のみ呼び出す。  
+デフォルト = false
+
+#### intName (string)
+呼び出す側の呼び出すwrap要素につけているID名、又はclass名を付ける。  
+class名の場合複数箇所に同内容複写可能
+デフォルト = '#target'
+
+#### callback (function)
+呼び出し後に使用したいコールバック関数を入れる。  
+渡した関数には、selectElm=falseの場合、XMLHttpRequest().responseText。  
+selectElm=trueの場合、XMLHttpRequest().responseXMLが渡される。
+デフォルト =  new Object()
+
+```html
+<div class="sec__body-wp" id="clone-wp"></div>
+<!-- 対象のDOMを読み込んでから -->
+<script>
+//引数は使う、使わない問わず付ける
+function func(callArg){
+  console.log('already done');
+}
+reqHtlmGet('https://yourwebsite/clone_top-media/','clone-wp',true,'#clone-wp__media',func);
+</script>
+```
+
+## ptCopyHtmlData ( target | string, where | string )
+特定の要素のDATA要素をコピーする。商品詳細ページ専用関数。
+
+## ptCopyHtmlDelete ( target | string, where | string )
+特定の要素のDOMをコピーして、元要素を消す。商品詳細ページ専用関数。
+
+## ptDeleteHtml ( target | string )
+特定の要素のDOMを消す。商品詳細ページ専用関数。
+
+## ptCopyHtml ( target | string, where | string )
+特定の要素のDOMをコピーする。商品詳細ページ専用関数。
+
+## ptCreateSpanBtn()
+特定の要素のDOMにspan要素で囲まれた文字を書き出す。商品詳細ページ専用関数。
+
+## cartDummyQty()
+特定の要素のDOMにダミーのselect要素（０固定）を書き出す。商品詳細ページ専用関数。
 
 ## License
 [MIT](https://www.opensource.org/licenses/mit-license.php)
