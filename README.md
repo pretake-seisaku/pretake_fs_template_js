@@ -525,13 +525,13 @@ falseで全て、trueで一部のみ呼び出す。
 
 #### intName (string)
 呼び出す側の呼び出すwrap要素につけているID名、又はclass名を付ける。  
-class名の場合複数箇所に同内容複写可能
+class名の場合複数箇所に同内容複写可能  
 デフォルト = '#target'
 
 #### callback (function)
 呼び出し後に使用したいコールバック関数を入れる。  
 渡した関数には、selectElm=falseの場合、XMLHttpRequest().responseText。  
-selectElm=trueの場合、XMLHttpRequest().responseXMLが渡される。
+selectElm=trueの場合、XMLHttpRequest().responseXMLが渡される。  
 デフォルト =  new Object()
 
 ```html
