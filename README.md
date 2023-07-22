@@ -163,6 +163,71 @@ pt.smoothScroll("glnav-block",["output-item-multi"]);
 pt.smoothScroll("glnav-block",["moveTo1","moveTo2","moveTo3"]);
 ```
 
+## pretakeScript.smoothScrollSingle( elm | string , ID | string(optional) )
+ページ内でIDで移動する時にスムーズに移動させる関数。  
+単体では使わない。別の関数と組み合わせる際に使う。
+
+### 使い方
+pretakeScriptを生成後  
+例 : トグルイベント後にスクロールするボタン設置する場合。  
+(要素がdisplay:none;などで隠れているとスクロールしないため)
+```javascript
+//　トグルイベント初期化
+// tglPanelオブジェクトに関しての動作はそちらの概要を参照
+const tgl = new pt.tglPanel();
+tgl.int();
+//　クリック用のイベント関数
+function clickEvent(e){
+  const arr = this.outsideArr;
+  // トグルイベント呼び出し
+  tgl.call(index=2);
+  // スクロールイベント
+  pt.smoothScrollSingle(arr.elm,arr.ID);
+};
+// イベントリスナーに渡す引数
+const arrCnt = {
+  elm:"target-elm",
+  ID:"glnav-block"
+};
+const clickElm = document.querySelector('.your-class');
+clickElm.addEventListener('click' , {oustsideArr: arrCnt,handleEvent:clickEvent});
+```
+``` html
+<!-- ↑ #で同名のIDの箇所へ移動する ↑ -->
+<a href="#move-tglPanel2">HOME</a>
+
+<div class="tab-panel">
+  <div class="tab-panel__tab">
+    <div class="tgl-swi tgl-swi__1 active">
+      タブ1
+    </div>
+    <div class="tgl-swi tgl-swi__2">
+      タブ2
+    </div>
+    <div class="tgl-swi tgl-swi__3">
+      タブ3
+    </div>
+  </div>
+  <div class="pane-target pane-target__1 show">
+    <!-- パネル1 -->
+  </div>
+  <div class="pane-target pane-target__2">
+    <!-- パネル1(ここへパネルを開いて移動) -->
+    <div id="move-tglPanel2">
+  </div>
+  <div class="pane-target pane-target__3">
+    <!-- パネル3 -->
+  </div>
+</div>
+```
+
+### 引数
+#### elm(string)
+移動先のID名をつける。#は無し。
+#### ID(string)
+ページ内での追従グローバルナビなど画面上部に常に表示される要素のIDをつける。付けた要素の高さを計算してその分下にずらす。ない場合、空のdiv要素などにIDを付けてそれをbody内の上の方に配置して使用可。
+
+
 ## pretakeScript.locationMoveToTag( ID | string)
 他ページ移動時、追従ヘッダーなどで文章が隠れる際の位置調整用の関数。
 ### 使い方
@@ -447,6 +512,31 @@ elm.addEventListener('click' , (e)=>{
   tgl.call('tab-panel__1',2);
 });
 ```
+
+## pretakeScript.swapAnkr(tar | string ,url | string , cls | string(optional, oUrl | string(optional)) , oCls | string(optional))
+futureShopの仕様で直接アンカーが付けられない文字に強引にアンカーを仕込む関数。  
+主に商品詳細のレビューの「件」のところをクリックで移動したい時用。（いらない様な気もする…）
+### 使い方
+pretakeScriptを生成後
+```javascript
+// 吸い出しレビューがすでに見えている(トグルやモーダルで隠れていない)ならこれで動く
+// 見えない場合は事前にトグルやモーダルを開いた状態にする工夫が必要。
+if (document.querySelector('#output-review_rating fs-c-productReview__aggregateRating')) {
+pt.swapAnkr('#output-review_rating .fs-c-aggregateRating__count','#output-reviw_desc','__ankr-pc','#output-reviw_desc-sp','__ankr-sp')  
+}
+```
+### 引数
+#### tar (string)
+対象の要素を記載。中身は他の要素(spanやbなどインライン要素も含む)があるとうまくいかないことがあるのでので注意。
+#### url (string)
+対象のアンカーリンク先を記載。
+#### cls (string)
+付与するアンカーにつけるクラス名。「.」は無し。
+#### oUrl(string)
+対象のアンカーリンク先を記載。PCとSPとでアンカー先を分ける際に使用。
+#### oCls (string)
+付与するアンカーにつけるクラス名。「.」は無し。PCとSPとでアンカー先を分ける際に使用。
+
 
 ## pretakeScript.setEnvHeight()
 ブラウザの縦幅(window.innerHeightで取れる値)を1/100にしてcssのカスタムプロパティーに登録する関数。単位はpx。
