@@ -213,7 +213,7 @@ clickElm.addEventListener('click' , {oustsideArr: arrCnt,handleEvent:clickEvent}
   </div>
   <div class="pane-target pane-target__2">
     <!-- パネル1(ここへパネルを開いて移動) -->
-    <div id="move-tglPanel2">
+    <div id="move-tglPanel2"></div>
   </div>
   <div class="pane-target pane-target__3">
     <!-- パネル3 -->
